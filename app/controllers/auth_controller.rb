@@ -19,7 +19,7 @@ class AuthController < ApplicationController
     if @user.valid?
       render json: @user, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity # Confirmation email can be sent from here
     end
   end
 
@@ -27,7 +27,7 @@ class AuthController < ApplicationController
   def logout
     if current_user == User.find(params[:id])
       current_user.logout
-      head :no_content
+      head :no_content # Customized logout message cound go here
     else
       head :unauthorized
     end
