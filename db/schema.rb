@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109155349) do
+ActiveRecord::Schema.define(version: 20151109170142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "books", force: :cascade do |t|
-    t.string   "title"
-    t.string   "isbn"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "fists", force: :cascade do |t|
+    t.integer  "value"
+    t.integer  "profile_id"
+    t.integer  "question_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  add_index "fists", ["profile_id"], name: "index_fists_on_profile_id", using: :btree
+  add_index "fists", ["question_id"], name: "index_fists_on_question_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "surname"
@@ -35,6 +38,12 @@ ActiveRecord::Schema.define(version: 20151109155349) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "questions", force: :cascade do |t|
+    t.string   "topic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
     t.string   "token",           null: false
@@ -46,5 +55,7 @@ ActiveRecord::Schema.define(version: 20151109155349) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
+  add_foreign_key "fists", "profiles"
+  add_foreign_key "fists", "questions"
   add_foreign_key "profiles", "users"
 end

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, except: [:new, :edit]
 
-  resources :books, except: [:new, :edit]
-
   resources :profiles, except: [:new, :edit]
+
+  resources :questions, except: [:new, :edit]
+
+  resources :fists, except: [:new, :edit]
 end
