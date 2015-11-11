@@ -14,7 +14,7 @@ class FistsController < OpenReadController
   end
 
   def create
-    @fist = current_user.fists.new(fist_params)
+    @fist = current_user.profile.fists.create(fist_params)
 
     if @fist.save
       render json: @fist, status: :created, location: @fist
@@ -24,8 +24,8 @@ class FistsController < OpenReadController
   end
 
   def update
-    if @book.update(fist_params)
-      head :no_content
+    if @fist.update(fist_params)
+      render json: @fist
     else
       render json: @fist.errors, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class FistsController < OpenReadController
   end
 
   def set_fist
-    @fist = current_user.fists.find(params[:id])
+    @fist = current_user.profile.fists.find(params[:id])
   end
 
   def fist_params

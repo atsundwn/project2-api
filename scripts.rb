@@ -1,4 +1,4 @@
-Profile.create!(surname:'Kent', given_name:'Clark', group:'WDI')
+Profile.create!(surname:'Kent', given_name:'Clark', group:'WDI', user_id: 1)
 
 Question.create!(topic:'Ruby methods')
 Question.create!(topic:'HTML5')

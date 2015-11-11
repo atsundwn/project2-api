@@ -14,7 +14,7 @@ class ProfilesController < OpenReadController
   end
 
   def create
-    @profile = current_user.profiles.new(profile_params)
+    @profile = current_user.create_profile(profile_params)
 
     if @profile.save
       render json: @profile, status: :created, location: @profile
@@ -25,7 +25,7 @@ class ProfilesController < OpenReadController
 
   def update
     if @profile.update(profile_params)
-      head :no_content
+      render json: @profile
     else
       render json: @profile.errors, status: :unprocessable_entity
     end
@@ -38,11 +38,11 @@ class ProfilesController < OpenReadController
   end
 
   def set_profile
-    @profile = current_user.profiles.find(params[:id])
+    @profile = current_user.profile
   end
 
   def profile_params
-    params.require(:profile).permit(:surname, :given_name, :group)
+    params.require(:profile).permit(:given_name, :surname, :group)
   end
 
   private :set_profile, :profile_params

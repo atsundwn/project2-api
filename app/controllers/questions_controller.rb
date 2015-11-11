@@ -14,7 +14,7 @@ class QuestionsController < OpenReadController
   end
 
   def create
-    @question = current_user.questions.new(question_params)
+    @question = current_user.profile.questions.create(question_params)
 
     if @question.save
       render json: @question, status: :created, location: @question
@@ -25,7 +25,7 @@ class QuestionsController < OpenReadController
 
   def update
     if @question.update(question_params)
-      head :no_content
+      render json: @question
     else
       render json: @question.errors, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class QuestionsController < OpenReadController
   end
 
   def set_question
-    @question = current_user.questions.find(params[:id])
+    @question = current_user.profile.questions.find(params[:id])
   end
 
   def question_params
