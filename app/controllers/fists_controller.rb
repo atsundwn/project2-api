@@ -2,9 +2,12 @@ class FistsController < OpenReadController
   before_action :set_fist, only: [:update, :destroy]
 
   def index
-    @fists = Fist.all
-
-    render json: @fists
+    if params[:profile_id]
+      @fist = Fist.where(profile_id: params[:profile_id])
+    else
+      @fist = Fist.all
+    end
+    render json: @fist
   end
 
   def show
@@ -42,7 +45,7 @@ class FistsController < OpenReadController
   end
 
   def fist_params
-    params.require(:fist).permit(:value)
+    params.require(:fist).permit(:value, :profile_id)
   end
 
   private :set_fist, :fist_params
