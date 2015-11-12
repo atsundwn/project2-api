@@ -2,9 +2,12 @@ class ProfilesController < OpenReadController
   before_action :set_profile, only: [:update, :destroy]
 
   def index
-    @profiles = Profile.all
-
-    render json: @profiles
+    if params[:user_id]
+      @profile = Profile.where(user_id: params[:user_id])
+    else
+      @profile = Profile.all
+    end
+    render json: @profile
   end
 
   def show
@@ -42,7 +45,7 @@ class ProfilesController < OpenReadController
   end
 
   def profile_params
-    params.require(:profile).permit(:given_name, :surname, :group)
+    params.require(:profile).permit(:given_name, :surname, :group, :user_id)
   end
 
   private :set_profile, :profile_params
