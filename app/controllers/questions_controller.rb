@@ -42,7 +42,7 @@ class QuestionsController < OpenReadController
   end
 
   def question_params
-    params.require(:question).permit(:topic)
+    params.require(:question).permit(:topic, :profile_id)
   end
 
   private :set_question, :question_params

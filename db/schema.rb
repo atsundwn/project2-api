@@ -40,9 +40,12 @@ ActiveRecord::Schema.define(version: 20151109170142) do
 
   create_table "questions", force: :cascade do |t|
     t.string   "topic"
+    t.integer  "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "questions", ["profile_id"], name: "index_questions_on_profile_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
@@ -58,4 +61,5 @@ ActiveRecord::Schema.define(version: 20151109170142) do
   add_foreign_key "fists", "profiles"
   add_foreign_key "fists", "questions"
   add_foreign_key "profiles", "users"
+  add_foreign_key "questions", "profiles"
 end

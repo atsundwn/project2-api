@@ -45,7 +45,7 @@ class FistsController < OpenReadController
   end
 
   def fist_params
-    params.require(:fist).permit(:value, :profile_id)
+    params.require(:fist).permit(:value, :profile_id, :question_id)
   end
 
   private :set_fist, :fist_params
