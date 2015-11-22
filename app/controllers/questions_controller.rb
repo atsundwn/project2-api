@@ -2,9 +2,12 @@ class QuestionsController < OpenReadController
   before_action :set_question, only: [:update, :destroy]
 
   def index
-    @questions = Question.all
-
-    render json: @questions
+    if params[:profile_id]
+      @question = Question.where(profile_id: params[:profile_id])
+    else
+      @question = Question.all
+    end
+    render json: @question
   end
 
   def show
