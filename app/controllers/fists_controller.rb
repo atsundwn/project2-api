@@ -4,6 +4,8 @@ class FistsController < OpenReadController
   def index
     if params[:profile_id]
       @fist = Fist.where(profile_id: params[:profile_id])
+    elsif params[:question_id]
+      @fist = Fist.where(question_id: params[:question_id]).group('value').count
     else
       @fist = Fist.all
     end
